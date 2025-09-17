@@ -1,4 +1,4 @@
-User name is John Doe.
-User is an AI Engineer.
-User is interested in AI Agents.
-User is based in San Francisco, California.
+O nome do usuário é John Doe.
+O usuário é um engenheiro de IA.
+O usuário tem interesse em agentes de IA.
+O usuário mora em São Francisco, Califórnia.

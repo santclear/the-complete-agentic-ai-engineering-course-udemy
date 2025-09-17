@@ -8,21 +8,21 @@ from debate.crew import Debate
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-# This main file is intended to be a way for you to run your
-# crew locally, so refrain from adding unnecessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
+# Este arquivo principal serve para que você execute sua
+# equipe localmente, portanto evite adicionar lógica desnecessária nele.
+# Substitua pelas entradas que deseja testar; as informações de tarefas e agentes
+# serão interpoladas automaticamente
 
 def run():
     """
-    Run the crew.
+    Execute a equipe.
     """
     inputs = {
-        'motion': 'There needs to be strict laws to regulate LLMs',
+        'motion': 'É necessário haver leis rigorosas para regular LLMs',
     }
-    
+
     try:
         result = Debate().crew().kickoff(inputs=inputs)
         print(result.raw)
     except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+        raise Exception(f"Ocorreu um erro ao executar a equipe: {e}")

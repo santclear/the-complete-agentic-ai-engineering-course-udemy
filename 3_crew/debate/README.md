@@ -1,54 +1,54 @@
 # Debate Crew
 
-Welcome to the Debate Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Bem-vindo ao projeto Debate Crew, desenvolvido com a tecnologia [crewAI](https://crewai.com). Este template foi criado para ajudá-lo a configurar com facilidade um sistema de IA multiagente, aproveitando a estrutura poderosa e flexível fornecida pela crewAI. Nosso objetivo é permitir que seus agentes colaborem de forma eficaz em tarefas complexas, maximizando sua inteligência e capacidades coletivas.
 
-## Installation
+## Instalação
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Certifique-se de ter o Python >=3.10 <3.13 instalado em seu sistema. Este projeto usa o [UV](https://docs.astral.sh/uv/) para gerenciamento de dependências e pacotes, oferecendo uma experiência de configuração e execução simplificada.
 
-First, if you haven't already, install uv:
+Primeiro, se ainda não o fez, instale o uv:
 
 ```bash
 pip install uv
 ```
 
-Next, navigate to your project directory and install the dependencies:
+Em seguida, navegue até o diretório do projeto e instale as dependências:
 
-(Optional) Lock the dependencies and install them by using the CLI command:
+(Opcional) Trave as dependências e instale-as usando o comando de CLI:
 ```bash
 crewai install
 ```
-### Customizing
+### Personalização
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+**Adicione sua `OPENAI_API_KEY` ao arquivo `.env`**
 
-- Modify `src/debate/config/agents.yaml` to define your agents
-- Modify `src/debate/config/tasks.yaml` to define your tasks
-- Modify `src/debate/crew.py` to add your own logic, tools and specific args
-- Modify `src/debate/main.py` to add custom inputs for your agents and tasks
+- Modifique `src/debate/config/agents.yaml` para definir seus agentes
+- Modifique `src/debate/config/tasks.yaml` para definir suas tarefas
+- Modifique `src/debate/crew.py` para adicionar sua própria lógica, ferramentas e argumentos específicos
+- Modifique `src/debate/main.py` para adicionar entradas personalizadas para seus agentes e tarefas
 
-## Running the Project
+## Executando o Projeto
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+Para iniciar sua equipe de agentes de IA e começar a execução das tarefas, execute o seguinte a partir da pasta raiz do seu projeto:
 
 ```bash
 $ crewai run
 ```
 
-This command initializes the debate Crew, assembling the agents and assigning them tasks as defined in your configuration.
+Esse comando inicializa a equipe de debate, reunindo os agentes e atribuindo-lhes tarefas conforme definido na sua configuração.
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+Este exemplo, sem modificações, criará um arquivo `report.md` com o resultado de uma pesquisa sobre LLMs na pasta raiz.
 
-## Understanding Your Crew
+## Entendendo Sua Equipe
 
-The debate Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+A equipe de debate é composta por vários agentes de IA, cada um com papéis, objetivos e ferramentas únicos. Esses agentes colaboram em uma série de tarefas, definidas em `config/tasks.yaml`, aproveitando suas habilidades coletivas para alcançar objetivos complexos. O arquivo `config/agents.yaml` descreve as capacidades e configurações de cada agente da sua equipe.
 
-## Support
+## Suporte
 
-For support, questions, or feedback regarding the Debate Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+Para suporte, dúvidas ou feedback sobre o Debate Crew ou a crewAI:
+- Visite nossa [documentação](https://docs.crewai.com)
+- Entre em contato conosco por meio do nosso [repositório no GitHub](https://github.com/joaomdmoura/crewai)
+- [Entre no nosso Discord](https://discord.com/invite/X4JWnZnxPb)
+- [Converse com nossa documentação](https://chatg.pt/DWjSBZn)
 
-Let's create wonders together with the power and simplicity of crewAI.
+Vamos criar maravilhas juntos com o poder e a simplicidade da crewAI.

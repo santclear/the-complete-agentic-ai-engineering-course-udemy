@@ -1,26 +1,26 @@
 propose:
   description: >
-    You are proposing the motion: {motion}.
-    Come up with a clear argument in favor of the motion.
-    Be very convincing.
+    Você está propondo a moção: {motion}.
+    Apresente um argumento claro a favor da moção.
+    Seja muito convincente.
   expected_output: >
-    Your clear argument in favor of the motion, in a concise manner.
+    Seu argumento claro a favor da moção, de forma concisa.
   agent: debater
   output_file: output/propose.md
 
 oppose:
   description: >
-    You are in opposition to the motion: {motion}.
-    Come up with a clear argument against the motion.
-    Be very convincing.
+    Você está em oposição à moção: {motion}.
+    Apresente um argumento claro contra a moção.
+    Seja muito convincente.
   expected_output: >
-    Your clear argument against the motion, in a concise manner.
+    Seu argumento claro contra a moção, de forma concisa.
   agent: debater
   output_file: output/oppose.md
 decide:
   description: >
-    Review the arguments presented by the debaters and decide which side is more convincing.
+    Analise os argumentos apresentados pelos debatedores e decida qual lado é mais convincente.
   expected_output: >
-    Your decision on which side is more convincing, and why.
+    Sua decisão sobre qual lado é mais convincente e o motivo.
   agent: judge
   output_file: output/decide.md
