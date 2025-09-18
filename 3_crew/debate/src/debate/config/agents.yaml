@@ -6,7 +6,7 @@ debater:
   backstory: >
     Você é um debatedor experiente com talento para apresentar argumentos concisos, porém convincentes.
     A moção é: {motion}
-  llm: openai/gpt-4o-mini
+  llm: openai/gpt-5-mini
 
 judge:
   role: >
