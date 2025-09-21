@@ -4,16 +4,16 @@ from pydantic import BaseModel, Field
 
 
 class MyCustomToolInput(BaseModel):
-    """Input schema for MyCustomTool."""
-    argument: str = Field(..., description="Description of the argument.")
+    """Esquema de entrada para MyCustomTool."""
+    argument: str = Field(..., description="Descrição do argumento.")
 
 class MyCustomTool(BaseTool):
-    name: str = "Name of my tool"
+    name: str = "Nome da minha ferramenta"
     description: str = (
-        "Clear description for what this tool is useful for, your agent will need this information to use it."
+        "Descrição clara do para que esta ferramenta é útil; seu agente precisará dessa informação para usá-la."
     )
     args_schema: Type[BaseModel] = MyCustomToolInput
 
     def _run(self, argument: str) -> str:
-        # Implementation goes here
-        return "this is an example of a tool output, ignore it and move along."
+        # A implementação vai aqui
+        return "este é um exemplo de saída de ferramenta, ignore e siga em frente."

@@ -1,33 +1,33 @@
 # src/research_crew/config/tasks.yaml
 research_task:
   description: >
-    Conduct thorough research on company {company}. Focus on:
-    1. Current company status and health
-    2. Historical company performance
-    3. Major challenges and opportunities
-    4. Recent news and events
-    5. Future outlook and potential developments
+    Conduza uma pesquisa aprofundada sobre a empresa {company}. Foque em:
+    1. Situação e saúde atuais da empresa
+    2. Desempenho histórico da empresa
+    3. Principais desafios e oportunidades
+    4. Notícias e eventos recentes
+    5. Perspectivas futuras e possíveis desenvolvimentos
 
-    Make sure to organize your findings in a structured format with clear sections.
+    Certifique-se de organizar suas descobertas em um formato estruturado, com seções claras.
   expected_output: >
-    A comprehensive research document with well-organized sections covering
-    all the requested aspects of {company}. Include specific facts, figures,
-    and examples where relevant.
+    Um documento de pesquisa abrangente, com seções bem organizadas, cobrindo
+    todos os aspectos solicitados de {company}. Inclua fatos, números
+    e exemplos específicos quando pertinente.
   agent: researcher
 
 analysis_task:
   description: >
-    Analyze the research findings and create a comprehensive report on {company}.
-    Your report should:
-    1. Begin with an executive summary
-    2. Include all key information from the research
-    3. Provide insightful analysis of trends and patterns
-    4. Offer a market outlook for company, noting that this should not be used for trading decisions
-    5. Be formatted in a professional, easy-to-read style with clear headings
+    Analise as descobertas da pesquisa e crie um relatório abrangente sobre {company}.
+    Seu relatório deve:
+    1. Começar com um resumo executivo
+    2. Incluir todas as informações-chave da pesquisa
+    3. Fornecer uma análise perspicaz de tendências e padrões
+    4. Oferecer uma visão do mercado para a empresa, observando que isso não deve ser usado para decisões de negociação
+    5. Estar formatado em um estilo profissional e de fácil leitura, com títulos claros
   expected_output: >
-    A polished, professional report on {company} that presents the research
-    findings with added analysis and insights. The report should be well-structured
-    with an executive summary, main sections, and conclusion.
+    Um relatório profissional e refinado sobre {company} que apresente as descobertas
+    da pesquisa com análise e insights adicionais. O relatório deve ser bem estruturado,
+    com um resumo executivo, seções principais e conclusão.
   agent: analyst
   context:
     - research_task
