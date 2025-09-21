@@ -9,30 +9,30 @@ from crewai.memory.storage.rag_storage import RAGStorage
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
 
 class TrendingCompany(BaseModel):
-    """ A company that is in the news and attracting attention """
-    name: str = Field(description="Company name")
-    ticker: str = Field(description="Stock ticker symbol")
-    reason: str = Field(description="Reason this company is trending in the news")
+    """ Empresa que aparece nas notícias e atrai atenção """
+    name: str = Field(description="Nome da empresa")
+    ticker: str = Field(description="Símbolo do ticker da ação")
+    reason: str = Field(description="Motivo pelo qual essa empresa está em destaque nas notícias")
 
 class TrendingCompanyList(BaseModel):
-    """ List of multiple trending companies that are in the news """
-    companies: List[TrendingCompany] = Field(description="List of companies trending in the news")
+    """ Lista de várias empresas em destaque nas notícias """
+    companies: List[TrendingCompany] = Field(description="Lista de empresas em destaque nas notícias")
 
 class TrendingCompanyResearch(BaseModel):
-    """ Detailed research on a company """
-    name: str = Field(description="Company name")
-    market_position: str = Field(description="Current market position and competitive analysis")
-    future_outlook: str = Field(description="Future outlook and growth prospects")
-    investment_potential: str = Field(description="Investment potential and suitability for investment")
+    """ Pesquisa detalhada sobre uma empresa """
+    name: str = Field(description="Nome da empresa")
+    market_position: str = Field(description="Posição atual de mercado e análise competitiva")
+    future_outlook: str = Field(description="Perspectiva futura e potencial de crescimento")
+    investment_potential: str = Field(description="Potencial e adequação para investimento")
 
 class TrendingCompanyResearchList(BaseModel):
-    """ A list of detailed research on all the companies """
-    research_list: List[TrendingCompanyResearch] = Field(description="Comprehensive research on all trending companies")
+    """ Lista de pesquisas detalhadas sobre todas as empresas """
+    research_list: List[TrendingCompanyResearch] = Field(description="Pesquisa abrangente sobre todas as empresas em destaque")
 
 
 @CrewBase
 class StockPicker():
-    """StockPicker crew"""
+    """Equipe StockPicker"""
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
@@ -77,7 +77,7 @@ class StockPicker():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the StockPicker crew"""
+        """Cria a equipe StockPicker"""
 
         manager = Agent(
             config=self.agents_config['manager'],
@@ -91,13 +91,13 @@ class StockPicker():
             verbose=True,
             manager_agent=manager,
             memory=True,
-            # Long-term memory for persistent storage across sessions
+            # Memória de longo prazo para armazenamento persistente entre sessões
             long_term_memory = LongTermMemory(
                 storage=LTMSQLiteStorage(
                     db_path="./memory/long_term_memory_storage.db"
                 )
             ),
-            # Short-term memory for current context using RAG
+            # Memória de curto prazo para o contexto atual usando RAG
             short_term_memory = ShortTermMemory(
                 storage = RAGStorage(
                         embedder_config={
@@ -109,7 +109,7 @@ class StockPicker():
                         type="short_term",
                         path="./memory/"
                     )
-                ),            # Entity memory for tracking key information about entities
+                ),            # Memória de entidades para acompanhar informações chave sobre entidades
             entity_memory = EntityMemory(
                 storage=RAGStorage(
                     embedder_config={
@@ -123,3 +123,5 @@ class StockPicker():
                 )
             ),
         )
+
+

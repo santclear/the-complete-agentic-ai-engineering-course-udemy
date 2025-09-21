@@ -6,15 +6,15 @@ import requests
 
 
 class PushNotification(BaseModel):
-    """A message to be sent to the user"""
-    message: str = Field(..., description="The message to be sent to the user.")
+    """Mensagem a ser enviada ao usuário"""
+    message: str = Field(..., description="Mensagem a ser enviada ao usuário.")
 
 class PushNotificationTool(BaseTool):
     
 
-    name: str = "Send a Push Notification"
+    name: str = "Enviar uma notificação push"
     description: str = (
-        "This tool is used to send a push notification to the user."
+        "Esta ferramenta é usada para enviar uma notificação push ao usuário."
     )
     args_schema: Type[BaseModel] = PushNotification
 
@@ -23,7 +23,8 @@ class PushNotificationTool(BaseTool):
         pushover_token = os.getenv("PUSHOVER_TOKEN")
         pushover_url = "https://api.pushover.net/1/messages.json"
 
-        print(f"Push: {message}")
+        print(f"Notificação: {message}")
         payload = {"user": pushover_user, "token": pushover_token, "message": message}
         requests.post(pushover_url, data=payload)
-        return '{"notification": "ok"}'
+        return '{"notificacao": "ok"}'
+
