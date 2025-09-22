@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 def run():
     """
-    Executa a equipe de pesquisa.
+    Executa a equipe de pesquisa focada no mercado acionário brasileiro.
     """
     inputs = {
         'sector': 'Energia',

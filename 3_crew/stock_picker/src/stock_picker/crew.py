@@ -9,9 +9,9 @@ from crewai.memory.storage.rag_storage import RAGStorage
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
 
 class TrendingCompany(BaseModel):
-    """ Empresa que aparece nas notícias e atrai atenção """
+    """Empresa listada na B3 que aparece nas notícias e atrai atenção"""
     name: str = Field(description="Nome da empresa")
-    ticker: str = Field(description="Símbolo do ticker da ação")
+    ticker: str = Field(description="Ticker negociado na B3 (ex.: PETR4.SA)")
     reason: str = Field(description="Motivo pelo qual essa empresa está em destaque nas notícias")
 
 class TrendingCompanyList(BaseModel):
@@ -19,7 +19,7 @@ class TrendingCompanyList(BaseModel):
     companies: List[TrendingCompany] = Field(description="Lista de empresas em destaque nas notícias")
 
 class TrendingCompanyResearch(BaseModel):
-    """ Pesquisa detalhada sobre uma empresa """
+    """Pesquisa detalhada sobre uma empresa listada na B3"""
     name: str = Field(description="Nome da empresa")
     market_position: str = Field(description="Posição atual de mercado e análise competitiva")
     future_outlook: str = Field(description="Perspectiva futura e potencial de crescimento")

@@ -1,6 +1,7 @@
 find_trending_companies:
   description: >
-    Encontre as principais empresas em destaque nas notícias em {sector} buscando as últimas notícias. Encontre empresas novas que você ainda não tenha encontrado antes.
+    Monitore as últimas notícias brasileiras, comunicados da CVM e fatos relevantes para encontrar empresas de {sector} listadas na B3
+    que estejam ganhando destaque. Priorize companhias novas que ainda não apareceram nas análises anteriores.
   expected_output: >
     Uma lista de empresas em destaque nas notícias em {sector}
   agent: trending_company_finder
@@ -8,7 +9,8 @@ find_trending_companies:
 
 research_trending_companies:
   description: >
-    Diante de uma lista de empresas em destaque, forneça análise detalhada de cada empresa em um relatório pesquisando online
+    Diante da lista de empresas brasileiras em destaque, pesquise fontes locais e internacionais para detalhar fundamentos, governança,
+    riscos macro/regulatórios e perspectivas de cada companhia listada na B3.
   expected_output: >
     Um relatório contendo análise detalhada de cada empresa
   agent: financial_researcher
@@ -18,9 +20,10 @@ research_trending_companies:
 
 pick_best_company:
   description: >
-    Analise as conclusões da pesquisa e escolha a melhor empresa para investimento.
+    Analise as conclusões à luz do mercado brasileiro e selecione a empresa da B3 com melhor relação risco-retorno vs. Selic/CDI.
     Envie uma notificação push para o usuário com a decisão e uma justificativa de 1 frase.
-    Em seguida responda com um relatório detalhado sobre por que você escolheu essa empresa e quais empresas não foram selecionadas.
+    Em seguida responda com relatório detalhado sobre o racional, mencionando empresas descartadas e motivos (liquidez, valuation,
+    exposição regulatória, etc.).
   expected_output: >
     A empresa escolhida e por que foi escolhida; as empresas que não foram selecionadas e por que não foram selecionadas.
   agent: stock_picker
