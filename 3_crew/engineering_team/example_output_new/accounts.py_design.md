@@ -1,65 +1,65 @@
-```markdown
-# Module: accounts.py
+﻿```markdown
+# Módulo: accounts.py
 
-This module implements a simple account management system for a trading simulation platform. It provides functionality for creating accounts, managing funds, recording transactions, calculating portfolio value, and generating reports.
+Este módulo implementa um sistema simples de gerenciamento de contas para uma plataforma de simulação de negociações. Ele oferece funcionalidades para criar contas, gerenciar fundos, registrar transações, calcular o valor do portfólio e gerar relatórios.
 
-## Class: Account
+## Classe: Account
 
-### Description:
-The `Account` class models a user's account in the trading simulation platform. It handles fund management, share transactions, and provides methods for generating reports regarding the user's financial activities.
+### Descrição:
+A classe `Account` modela a conta de um usuário na plataforma de simulação de negociações. Ela lida com a gestão de fundos, transações de ações e fornece métodos para gerar relatórios sobre as atividades financeiras do usuário.
 
-### Attributes:
-- `user_id: str` - Unique identifier for the user.
-- `balance: float` - Current cash balance in the user's account.
-- `initial_deposit: float` - The initial deposit amount at account creation for profit/loss calculations.
-- `holdings: dict` - A dictionary mapping stock symbols to the quantity of shares owned by the user.
-- `transactions: list` - A list of transaction records detailing past deposits, withdrawals, and share trades.
+### Atributos:
+- `user_id: str` - Identificador exclusivo para o usuário.
+- `balance: float` - Saldo em dinheiro atual na conta do usuário.
+- `initial_deposit: float` - Valor do depósito inicial na criação da conta para cálculos de lucro/prejuízo.
+- `holdings: dict` - Um dicionário que relaciona símbolos de ações à quantidade de ações possuídas pelo usuário.
+- `transactions: list` - Uma lista de registros de transações detalhando depósitos, saques e negociações de ações anteriores.
 
-### Methods:
+### Métodos:
 
 #### `__init__(self, user_id: str, initial_deposit: float) -> None`
-- Initializes a new Account object with a unique user ID and initial deposit.
-- Sets the initial balance to the value of the initial deposit.
-- Initializes holdings and transactions with empty structures.
+- Inicializa um novo objeto Account com um ID de usuário exclusivo e um depósito inicial.
+- Define o saldo inicial com o valor do depósito inicial.
+- Inicializa holdings e transactions com estruturas vazias.
 
 #### `deposit_funds(self, amount: float) -> None`
-- Adds specified amount to the user's account balance.
-- Records the transaction in the transactions list.
+- Adiciona o valor especificado ao saldo da conta do usuário.
+- Registra a transação na lista de transações.
 
 #### `withdraw_funds(self, amount: float) -> bool`
-- Attempts to withdraw the specified amount from the user's balance.
-- Checks if funds are sufficient; if so, updates the balance and records transaction.
-- Returns `True` if successful, `False` otherwise.
+- Tenta sacar o valor especificado do saldo do usuário.
+- Verifica se há fundos suficientes; se houver, atualiza o saldo e registra a transação.
+- Retorna `True` se for bem-sucedido, `False` caso contrário.
 
 #### `buy_shares(self, symbol: str, quantity: int) -> bool`
-- Buys the specified quantity of shares for a given stock symbol.
-- Retrieves current share price using `get_share_price(symbol)`.
-- Checks if funds are sufficient; if so, updates balance, holdings, and records transaction.
-- Returns `True` if successful, `False` otherwise.
+- Compra a quantidade especificada de ações para um símbolo informado.
+- Obtém o preço atual da ação usando `get_share_price(symbol)`.
+- Verifica se há fundos suficientes; se houver, atualiza saldo, participações e registra a transação.
+- Retorna `True` se for bem-sucedido, `False` caso contrário.
 
 #### `sell_shares(self, symbol: str, quantity: int) -> bool`
-- Sells the specified quantity of shares for a given stock symbol.
-- Checks if user has enough shares; if so, calculates revenue, updates balance, holdings, and records transaction.
-- Returns `True` if successful, `False` otherwise.
+- Vende a quantidade especificada de ações para um símbolo informado.
+- Verifica se o usuário possui ações suficientes; se possuir, calcula a receita, atualiza saldo, participações e registra a transação.
+- Retorna `True` se for bem-sucedido, `False` caso contrário.
 
 #### `calculate_portfolio_value(self) -> float`
-- Calculates the total value of the user's portfolio by summing the value of all shares owned and the current balance.
-- Uses `get_share_price(symbol)` to fetch the current price of each stock.
+- Calcula o valor total do portfólio do usuário somando o valor de todas as ações possuídas e o saldo atual.
+- Usa `get_share_price(symbol)` para buscar o preço atual de cada ação.
 
 #### `calculate_profit_or_loss(self) -> float`
-- Calculates the user's current profit or loss since the initial deposit by subtracting the initial deposit from the portfolio value.
+- Calcula o lucro ou prejuízo atual do usuário desde o depósito inicial, subtraindo o depósito inicial do valor do portfólio.
 
 #### `get_holdings(self) -> dict`
-- Returns a dictionary of current stock holdings with quantities.
+- Retorna um dicionário com as participações atuais, incluindo as quantidades.
 
 #### `get_transactions(self) -> list`
-- Returns a list of all transactions performed by the user.
+- Retorna uma lista de todas as transações realizadas pelo usuário.
 
 #### `get_report(self) -> dict`
-- Returns a comprehensive report including current balance, holdings, portfolio value, and profit/loss.
+- Retorna um relatório abrangente incluindo saldo atual, participações, valor do portfólio e lucro/prejuízo.
 
-## External Function: get_share_price(symbol) -> float
-- A mock function to simulate fetching current stock prices. Returns fixed values for test symbols: AAPL, TSLA, GOOGL.
+## Função Externa: get_share_price(symbol) -> float
+- Uma função simulada para buscar preços atuais de ações. Retorna valores fixos para os símbolos de teste: AAPL, TSLA, GOOGL.
 ```
 
-This design outlines the class and functions in the `accounts.py` module, describing functionality critical to achieving the specified requirements. The `Account` class encapsulates all operations, including account creation, fund management, portfolio value calculation, and reporting.
+Este design descreve a classe e as funções do módulo `accounts.py`, apresentando funcionalidades essenciais para cumprir os requisitos especificados. A classe `Account` encapsula todas as operações, incluindo criação de contas, gestão de fundos, cálculo do valor do portfólio e geração de relatórios.

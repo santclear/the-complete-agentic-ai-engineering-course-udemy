@@ -1,27 +1,57 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 import sys
 import warnings
 import os
 from datetime import datetime
+from crewai.llm import LLM
+
+def _model_base_name(model_id: str) -> str:
+    return model_id.split("/", 1)[-1].lower()
+
+_UNSUPPORTED_STOP_PREFIXES = (
+    "gpt-4.1",      # gpt-4.1, gpt-4.1-mini, etc.
+    "gpt-5",        # gpt-5, gpt-5-mini
+    "o1", "o3",     # reasoning models também não aceitam stop
+)
+
+if not getattr(LLM, "_stop_patch_ready", False):
+    _orig_supports_stop = LLM.supports_stop_words
+    _orig_prepare = LLM._prepare_completion_params
+
+    def _supports_stop_words(self) -> bool:
+        model_name = _model_base_name(self.model)
+        if model_name.startswith(_UNSUPPORTED_STOP_PREFIXES):
+            return False
+        return _orig_supports_stop(self)
+
+    def _prepare_completion_params(self, messages, tools=None):
+        params = _orig_prepare(self, messages, tools)
+        if not self.supports_stop_words() or params.get("stop") in (None, [], ()):
+            params.pop("stop", None)
+        return params
+
+    LLM.supports_stop_words = _supports_stop_words
+    LLM._prepare_completion_params = _prepare_completion_params
+    LLM._stop_patch_ready = True
 
 from engineering_team.crew import EngineeringTeam
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-# Create output directory if it doesn't exist
+# Cria o diretório de saída caso não exista
 os.makedirs('output', exist_ok=True)
 
 requirements = """
-A simple account management system for a trading simulation platform.
-The system should allow users to create an account, deposit funds, and withdraw funds.
-The system should allow users to record that they have bought or sold shares, providing a quantity.
-The system should calculate the total value of the user's portfolio, and the profit or loss from the initial deposit.
-The system should be able to report the holdings of the user at any point in time.
-The system should be able to report the profit or loss of the user at any point in time.
-The system should be able to list the transactions that the user has made over time.
-The system should prevent the user from withdrawing funds that would leave them with a negative balance, or
- from buying more shares than they can afford, or selling shares that they don't have.
- The system has access to a function get_share_price(symbol) which returns the current price of a share, and includes a test implementation that returns fixed prices for AAPL, TSLA, GOOGL.
+Um sistema simples de gerenciamento de contas para uma plataforma de simulação de negociações.
+O sistema deve permitir que os usuários criem uma conta, depositem fundos e retirem fundos.
+O sistema deve permitir que os usuários registrem que compraram ou venderam ações, informando uma quantidade.
+O sistema deve calcular o valor total do portfólio do usuário e o lucro ou prejuízo em relação ao depósito inicial.
+O sistema deve ser capaz de relatar as participações do usuário em qualquer momento.
+O sistema deve ser capaz de relatar o lucro ou prejuízo do usuário em qualquer momento.
+O sistema deve ser capaz de listar as transações que o usuário realizou ao longo do tempo.
+O sistema deve impedir que o usuário retire fundos que o deixariam com saldo negativo, ou
+ que compre mais ações do que pode pagar, ou venda ações que não possui.
+ O sistema tem acesso à função get_share_price(symbol), que retorna o preço atual de uma ação e inclui uma implementação de teste que devolve preços fixos para AAPL, TSLA, GOOGL.
 """
 module_name = "accounts.py"
 class_name = "Account"
@@ -29,7 +59,7 @@ class_name = "Account"
 
 def run():
     """
-    Run the research crew.
+    Executa a equipe de pesquisa.
     """
     inputs = {
         'requirements': requirements,
@@ -37,7 +67,7 @@ def run():
         'class_name': class_name
     }
 
-    # Create and run the crew
+    # Cria e executa a equipe
     result = EngineeringTeam().crew().kickoff(inputs=inputs)
 
 

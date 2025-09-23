@@ -1,22 +1,22 @@
-design_task:
+﻿design_task:
   description: >
-    Take the high level requirements described here and prepare a detailed design for the engineer;
-    everything should be in 1 python module, but outline the classes and methods in the module.
-    Here are the requirements: {requirements}
-    IMPORTANT: Only output the design in markdown format, laying out in detail the classes and functions in the module, describing the functionality.
+    Pegue os requisitos de alto nível descritos aqui e prepare um design detalhado para o engenheiro;
+    tudo deve estar em 1 módulo Python, mas detalhe as classes e métodos no módulo.
+    Aqui estão os requisitos: {requirements}
+    IMPORTANTE: Forneça apenas o design em formato Markdown, detalhando as classes e funções do módulo e descrevendo a funcionalidade.
   expected_output: >
-    A detailed design for the engineer, identifying the classes and functions in the module.
+    Um design detalhado para o engenheiro, identificando as classes e funções no módulo.
   agent: engineering_lead
   output_file: output/{module_name}_design.md
 
 code_task:
   description: >
-    Write a python module that implements the design described by the engineering lead, in order to achieve the requirements.
-    Here are the requirements: {requirements}
+    Escreva um módulo Python que implemente o design descrito pelo líder de engenharia, a fim de atender aos requisitos.
+    Aqui estão os requisitos: {requirements}
   expected_output: >
-    A python module that implements the design and achieves the requirements.
-    IMPORTANT: Output ONLY the raw Python code without any markdown formatting, code block delimiters, or backticks.
-    The output should be valid Python code that can be directly saved to a file and executed.
+    Um módulo Python que implementa o design e atende aos requisitos.
+    IMPORTANTE: Forneça APENAS o código Python puro, sem qualquer formatação em Markdown, delimitadores de bloco de código ou crases.
+    A saída deve ser um código Python válido que possa ser salvo diretamente em um arquivo e executado.
   agent: backend_engineer
   context:
     - design_task
@@ -24,14 +24,14 @@ code_task:
 
 frontend_task:
   description: >
-    Write a gradio UI in a module app.py that demonstrates the given backend class in {module_name}.
-    Assume there is only 1 user, and keep the UI very simple indeed - just a prototype or demo.
-    Here are the requirements: {requirements}
+    Escreva uma interface Gradio em um módulo app.py que demonstre a classe de backend fornecida em {module_name}.
+    Presuma que há apenas 1 usuário e mantenha a interface bem simples — apenas um protótipo ou demonstração.
+    Aqui estão os requisitos: {requirements}
   expected_output: >
-    A gradio UI in module app.py that demonstrates the given backend class.
-    The file should be ready so that it can be run as-is, in the same directory as the backend module, and it should import the backend class from {module_name}.
-    IMPORTANT: Output ONLY the raw Python code without any markdown formatting, code block delimiters, or backticks.
-    The output should be valid Python code that can be directly saved to a file and executed.
+    Uma interface Gradio no módulo app.py que demonstre a classe de backend fornecida.
+    O arquivo deve estar pronto para ser executado como está, no mesmo diretório que o módulo de backend, e deve importar a classe de backend de {module_name}.
+    IMPORTANTE: Forneça APENAS o código Python puro, sem qualquer formatação em Markdown, delimitadores de bloco de código ou crases.
+    A saída deve ser um código Python válido que possa ser salvo diretamente em um arquivo e executado.
   agent: frontend_engineer
   context:
     - code_task
@@ -39,11 +39,11 @@ frontend_task:
 
 test_task:
   description: >
-    Write unit tests for the given backend module {module_name} and create a test_{module_name} in the same directory as the backend module.
+    Escreva testes unitários para o módulo de backend {module_name} e crie um test_{module_name} no mesmo diretório que o módulo de backend.
   expected_output: >
-    A test_{module_name} module that tests the given backend module.
-    IMPORTANT: Output ONLY the raw Python code without any markdown formatting, code block delimiters, or backticks.
-    The output should be valid Python code that can be directly saved to a file and executed.
+    Um módulo test_{module_name} que testa o módulo de backend fornecido.
+    IMPORTANTE: Forneça APENAS o código Python puro, sem qualquer formatação em Markdown, delimitadores de bloco de código ou crases.
+    A saída deve ser um código Python válido que possa ser salvo diretamente em um arquivo e executado.
   agent: test_engineer
   context:
     - code_task

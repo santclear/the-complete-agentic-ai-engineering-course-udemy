@@ -1,11 +1,11 @@
-from crewai import Agent, Crew, Process, Task
+﻿from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
 
 
 @CrewBase
 class EngineeringTeam():
-    """EngineeringTeam crew"""
+    """Equipe EngineeringTeam"""
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
@@ -23,7 +23,7 @@ class EngineeringTeam():
             config=self.agents_config['backend_engineer'],
             verbose=True,
             allow_code_execution=True,
-            code_execution_mode="safe",  # Uses Docker for safety
+            code_execution_mode="safe",  # Usa Docker para segurança
             max_execution_time=500, 
             max_retry_limit=3 
         )
@@ -41,7 +41,7 @@ class EngineeringTeam():
             config=self.agents_config['test_engineer'],
             verbose=True,
             allow_code_execution=True,
-            code_execution_mode="safe",  # Uses Docker for safety
+            code_execution_mode="safe",  # Usa Docker para segurança
             max_execution_time=500, 
             max_retry_limit=3 
         )
@@ -72,7 +72,7 @@ class EngineeringTeam():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the research crew"""
+        """Cria a equipe de pesquisa"""
         return Crew(
             agents=self.agents,
             tasks=self.tasks,

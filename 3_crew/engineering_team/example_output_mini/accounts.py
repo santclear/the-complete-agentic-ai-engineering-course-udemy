@@ -1,94 +1,94 @@
-# accounts.py
+﻿# accounts.py
 
 class Account:
     def __init__(self, username: str, initial_deposit: float):
         """
-        Initialize an account with a username and an initial deposit.
+        Inicializa uma conta com um nome de usuário e um depósito inicial.
 
-        :param username: Name of the user for the account.
-        :param initial_deposit: Initial amount deposited into the account.
+        :param username: Nome do usuário da conta.
+        :param initial_deposit: Valor inicial depositado na conta.
         """
         self.username = username
         self.balance = initial_deposit
-        self.holdings = {}  # {symbol: quantity}
-        self.transactions = []  # List of transaction records
+        self.holdings = {}  # {símbolo: quantidade}
+        self.transactions = []  # Lista de registros de transações
         self.initial_deposit = initial_deposit
 
     def deposit(self, amount: float) -> None:
         """
-        Deposit funds into the account.
+        Deposita fundos na conta.
 
-        :param amount: Amount to deposit.
+        :param amount: Valor a ser depositado.
         """
         if amount <= 0:
-            raise ValueError("Deposit amount must be positive.")
+            raise ValueError("O valor do depósito deve ser positivo.")
         self.balance += amount
-        self.transactions.append(f"Deposited: ${amount:.2f}")
+        self.transactions.append(f"Depositado: ${amount:.2f}")
 
     def withdraw(self, amount: float) -> None:
         """
-        Withdraw funds from the account.
+        Saca fundos da conta.
 
-        :param amount: Amount to withdraw.
-        :raises ValueError: If the withdrawal would leave a negative balance.
+        :param amount: Valor a ser sacado.
+        :raises ValueError: Se o saque deixar o saldo negativo.
         """
         if amount <= 0:
-            raise ValueError("Withdrawal amount must be positive.")
+            raise ValueError("O valor do saque deve ser positivo.")
         if self.balance - amount < 0:
-            raise ValueError("Cannot withdraw, insufficient funds.")
+            raise ValueError("Não é possível sacar, fundos insuficientes.")
         self.balance -= amount
-        self.transactions.append(f"Withdrawn: ${amount:.2f}")
+        self.transactions.append(f"Sacado: ${amount:.2f}")
 
     def buy_shares(self, symbol: str, quantity: int) -> None:
         """
-        Buy shares of a specific stock.
+        Compra ações de uma empresa específica.
 
-        :param symbol: Ticker symbol of the stock to buy.
-        :param quantity: Number of shares to buy.
-        :raises ValueError: If attempting to buy more shares than the balance allows.
+        :param symbol: Símbolo da ação a ser comprada.
+        :param quantity: Número de ações a comprar.
+        :raises ValueError: Se tentar comprar mais ações do que o saldo permite.
         """
         if quantity <= 0:
-            raise ValueError("Quantity must be positive.")
+            raise ValueError("A quantidade deve ser positiva.")
         share_price = get_share_price(symbol)
         total_cost = share_price * quantity
 
         if self.balance < total_cost:
-            raise ValueError("Cannot buy, insufficient funds.")
+            raise ValueError("Não é possível comprar, fundos insuficientes.")
 
         self.balance -= total_cost
         if symbol in self.holdings:
             self.holdings[symbol] += quantity
         else:
             self.holdings[symbol] = quantity
-        self.transactions.append(f"Bought: {quantity} shares of {symbol} at ${share_price:.2f} each")
+        self.transactions.append(f"Comprado: {quantity} ações de {symbol} a ${share_price:.2f} cada")
 
     def sell_shares(self, symbol: str, quantity: int) -> None:
         """
-        Sell shares of a specific stock.
+        Vende ações de uma empresa específica.
 
-        :param symbol: Ticker symbol of the stock to sell.
-        :param quantity: Number of shares to sell.
-        :raises ValueError: If attempting to sell more shares than owned.
+        :param symbol: Símbolo da ação a ser vendida.
+        :param quantity: Número de ações a vender.
+        :raises ValueError: Se tentar vender mais ações do que possui.
         """
         if quantity <= 0:
-            raise ValueError("Quantity must be positive.")
+            raise ValueError("A quantidade deve ser positiva.")
         if symbol not in self.holdings or self.holdings[symbol] < quantity:
-            raise ValueError("Cannot sell, insufficient shares owned.")
+            raise ValueError("Não é possível vender, ações insuficientes.")
 
         share_price = get_share_price(symbol)
         total_sale_value = share_price * quantity
 
         self.holdings[symbol] -= quantity
         if self.holdings[symbol] == 0:
-            del self.holdings[symbol]  # Remove symbol if no shares are left
+            del self.holdings[symbol]  # Remove o símbolo se não restarem ações
         self.balance += total_sale_value
-        self.transactions.append(f"Sold: {quantity} shares of {symbol} at ${share_price:.2f} each")
+        self.transactions.append(f"Vendido: {quantity} ações de {symbol} a ${share_price:.2f} cada")
 
     def portfolio_value(self) -> float:
         """
-        Calculate the total value of the user's portfolio.
+        Calcula o valor total do portfólio do usuário.
 
-        :return: Total value of holdings plus balance.
+        :return: Valor total das participações mais o saldo.
         """
         total_value = self.balance
         for symbol, quantity in self.holdings.items():
@@ -97,39 +97,39 @@ class Account:
 
     def profit_or_loss(self) -> float:
         """
-        Calculate the profit or loss from the initial deposit.
+        Calcula o lucro ou prejuízo em relação ao depósito inicial.
 
-        :return: Profit or loss amount.
+        :return: Valor de lucro ou prejuízo.
         """
         return self.portfolio_value() - self.initial_deposit
 
     def report_holdings(self) -> dict:
         """
-        Report the current holdings of the user.
+        Relata as participações atuais do usuário.
 
-        :return: A dictionary of holdings with symbols and quantities.
+        :return: Dicionário de participações com símbolos e quantidades.
         """
         return self.holdings
 
     def report_transactions(self) -> list:
         """
-        List all transactions made by the user.
+        Lista todas as transações realizadas pelo usuário.
 
-        :return: A list of transaction records.
+        :return: Lista de registros de transações.
         """
         return self.transactions
 
 
 def get_share_price(symbol: str) -> float:
     """
-    Mock function to return the current price of a given share symbol.
+    Função simulada que retorna o preço atual de uma ação.
 
-    :param symbol: Ticker symbol for price lookup.
-    :return: The share price.
+    :param symbol: Símbolo da ação para consulta de preço.
+    :return: Preço da ação.
     """
     mock_prices = {
         'AAPL': 150.00,  # Apple
         'TSLA': 700.00,  # Tesla
         'GOOGL': 2800.00  # Google
     }
-    return mock_prices.get(symbol, 0.0)  # Return 0.0 for unknown symbols
+    return mock_prices.get(symbol, 0.0)  # Retorna 0.0 para símbolos desconhecidos

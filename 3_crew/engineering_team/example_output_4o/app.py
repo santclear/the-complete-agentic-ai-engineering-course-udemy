@@ -1,158 +1,158 @@
-import gradio as gr
+﻿import gradio as gr
 from accounts import Account, get_share_price
 
-# Initialize an account
+# Inicializa uma conta
 account = Account("user1")
 
 def create_account(deposit_amount):
-    """Create an account with an initial deposit"""
+    """Cria uma conta com depósito inicial"""
     if account.deposit(float(deposit_amount)):
-        return f"Account created with ID: {account.account_id}. Initial deposit: ${deposit_amount}"
+        return f"Conta criada com ID: {account.account_id}. Depósito inicial: ${deposit_amount}"
     else:
-        return "Failed to create account. Deposit amount must be positive."
+        return "Falha ao criar a conta. O valor do depósito deve ser positivo."
 
 def deposit_funds(amount):
-    """Deposit funds into the account"""
+    """Deposita fundos na conta"""
     if account.deposit(float(amount)):
-        return f"Successfully deposited ${amount}. New balance: ${account.balance:.2f}"
+        return f"Depósito de ${amount} realizado com sucesso. Novo saldo: ${account.balance:.2f}"
     else:
-        return "Failed to deposit. Amount must be positive."
+        return "Falha ao depositar. O valor deve ser positivo."
 
 def withdraw_funds(amount):
-    """Withdraw funds from the account"""
+    """Saca fundos da conta"""
     if account.withdraw(float(amount)):
-        return f"Successfully withdrew ${amount}. New balance: ${account.balance:.2f}"
+        return f"Saque de ${amount} realizado com sucesso. Novo saldo: ${account.balance:.2f}"
     else:
-        return "Failed to withdraw. Insufficient funds or invalid amount."
+        return "Falha ao sacar. Saldo insuficiente ou valor inválido."
 
 def buy_stock(symbol, quantity):
-    """Buy shares of a stock"""
+    """Compra ações de um ativo"""
     try:
         quantity = int(quantity)
         if account.buy_shares(symbol, quantity, get_share_price):
-            return f"Successfully bought {quantity} shares of {symbol} at ${get_share_price(symbol):.2f} per share. New balance: ${account.balance:.2f}"
+            return f"Compra de {quantity} ações de {symbol} realizada a ${get_share_price(symbol):.2f} por ação. Novo saldo: ${account.balance:.2f}"
         else:
-            return "Failed to buy shares. Insufficient funds or invalid quantity."
+            return "Falha ao comprar ações. Saldo insuficiente ou quantidade inválida."
     except ValueError:
-        return "Quantity must be a valid integer."
+        return "A quantidade deve ser um número inteiro válido."
 
 def sell_stock(symbol, quantity):
-    """Sell shares of a stock"""
+    """Vende ações de um ativo"""
     try:
         quantity = int(quantity)
         if account.sell_shares(symbol, quantity, get_share_price):
-            return f"Successfully sold {quantity} shares of {symbol} at ${get_share_price(symbol):.2f} per share. New balance: ${account.balance:.2f}"
+            return f"Venda de {quantity} ações de {symbol} realizada a ${get_share_price(symbol):.2f} por ação. Novo saldo: ${account.balance:.2f}"
         else:
-            return "Failed to sell shares. Insufficient shares or invalid quantity."
+            return "Falha ao vender ações. Ações insuficientes ou quantidade inválida."
     except ValueError:
-        return "Quantity must be a valid integer."
+        return "A quantidade deve ser um número inteiro válido."
 
 def get_portfolio():
-    """Get the current portfolio holdings and value"""
+    """Obtém as participações e o valor do portfólio"""
     holdings = account.get_holdings()
     if not holdings:
-        return "You don't own any shares yet."
+        return "Você ainda não possui ações."
     
-    result = "Current Portfolio:\n"
+    result = "Portfólio Atual:\n"
     total_value = 0
     
     for symbol, quantity in holdings.items():
         price = get_share_price(symbol)
         value = price * quantity
         total_value += value
-        result += f"{symbol}: {quantity} shares at ${price:.2f} each = ${value:.2f}\n"
+        result += f"{symbol}: {quantity} ações a ${price:.2f} cada = ${value:.2f}\n"
     
-    result += f"\nTotal Portfolio Value: ${total_value:.2f}"
-    result += f"\nCash Balance: ${account.balance:.2f}"
-    result += f"\nTotal Account Value: ${(total_value + account.balance):.2f}"
+    result += f"\nValor Total do Portfólio: ${total_value:.2f}"
+    result += f"\nSaldo em Caixa: ${account.balance:.2f}"
+    result += f"\nValor Total da Conta: ${(total_value + account.balance):.2f}"
     
     profit_loss = account.get_profit_or_loss(get_share_price)
     if profit_loss > 0:
-        result += f"\nProfit: ${profit_loss:.2f}"
+        result += f"\nLucro: ${profit_loss:.2f}"
     else:
-        result += f"\nLoss: ${-profit_loss:.2f}"
+        result += f"\nPrejuízo: ${-profit_loss:.2f}"
     
     return result
 
 def list_transactions():
-    """List all transactions made by the user"""
+    """Lista todas as transações realizadas pelo usuário"""
     transactions = account.get_transactions()
     if not transactions:
-        return "No transactions yet."
+        return "Nenhuma transação registrada."
     
-    result = "Transaction History:\n"
+    result = "Histórico de Transações:\n"
     for idx, tx in enumerate(transactions, 1):
         if tx['type'] == 'deposit':
-            result += f"{idx}. Deposit: ${tx['amount']:.2f}, Balance: ${tx['balance']:.2f}\n"
+            result += f"{idx}. Depósito: ${tx['amount']:.2f}, Saldo: ${tx['balance']:.2f}\n"
         elif tx['type'] == 'withdraw':
-            result += f"{idx}. Withdraw: ${tx['amount']:.2f}, Balance: ${tx['balance']:.2f}\n"
+            result += f"{idx}. Saque: ${tx['amount']:.2f}, Saldo: ${tx['balance']:.2f}\n"
         elif tx['type'] == 'buy':
-            result += f"{idx}. Buy: {tx['quantity']} {tx['symbol']} at ${tx['price']:.2f}, Total: ${tx['total']:.2f}, Balance: ${tx['balance']:.2f}\n"
+            result += f"{idx}. Compra: {tx['quantity']} {tx['symbol']} a ${tx['price']:.2f}, Total: ${tx['total']:.2f}, Saldo: ${tx['balance']:.2f}\n"
         elif tx['type'] == 'sell':
-            result += f"{idx}. Sell: {tx['quantity']} {tx['symbol']} at ${tx['price']:.2f}, Total: ${tx['total']:.2f}, Balance: ${tx['balance']:.2f}\n"
+            result += f"{idx}. Venda: {tx['quantity']} {tx['symbol']} a ${tx['price']:.2f}, Total: ${tx['total']:.2f}, Saldo: ${tx['balance']:.2f}\n"
     
     return result
 
 def check_price(symbol):
-    """Check the current price of a stock"""
+    """Verifica o preço atual de um ativo"""
     price = get_share_price(symbol)
     if price > 0:
-        return f"Current price of {symbol}: ${price:.2f}"
+        return f"Preço atual de {symbol}: ${price:.2f}"
     else:
-        return f"Stock {symbol} not found. Available stocks: AAPL, TSLA, GOOGL"
+        return f"Ativo {symbol} não encontrado. Ações disponíveis: AAPL, TSLA, GOOGL"
 
-# Create the Gradio interface
-with gr.Blocks(title="Trading Simulation Platform") as demo:
-    gr.Markdown("# Trading Simulation Platform")
+# Cria a interface Gradio
+with gr.Blocks(title="Plataforma de Simulação de Negociações") as demo:
+    gr.Markdown("# Plataforma de Simulação de Negociações")
     
-    with gr.Tab("Create Account"):
+    with gr.Tab("Criar Conta"):
         with gr.Row():
-            deposit_input = gr.Number(label="Initial Deposit Amount ($)", value=1000)
-            create_btn = gr.Button("Create Account")
-        create_output = gr.Textbox(label="Result")
+            deposit_input = gr.Number(label="Valor do Depósito Inicial ($)", value=1000)
+            create_btn = gr.Button("Criar Conta")
+        create_output = gr.Textbox(label="Resultado")
         create_btn.click(create_account, inputs=[deposit_input], outputs=[create_output])
     
-    with gr.Tab("Deposit/Withdraw"):
+    with gr.Tab("Depósito/Saque"):
         with gr.Row():
             with gr.Column():
-                deposit_amount = gr.Number(label="Deposit Amount ($)")
-                deposit_btn = gr.Button("Deposit")
+                deposit_amount = gr.Number(label="Valor do Depósito ($)")
+                deposit_btn = gr.Button("Depositar")
             with gr.Column():
-                withdraw_amount = gr.Number(label="Withdraw Amount ($)")
-                withdraw_btn = gr.Button("Withdraw")
-        fund_output = gr.Textbox(label="Result")
+                withdraw_amount = gr.Number(label="Valor do Saque ($)")
+                withdraw_btn = gr.Button("Sacar")
+        fund_output = gr.Textbox(label="Resultado")
         deposit_btn.click(deposit_funds, inputs=[deposit_amount], outputs=[fund_output])
         withdraw_btn.click(withdraw_funds, inputs=[withdraw_amount], outputs=[fund_output])
     
-    with gr.Tab("Trade Stocks"):
+    with gr.Tab("Negociar Ações"):
         with gr.Row():
             with gr.Column():
-                buy_symbol = gr.Dropdown(label="Symbol", choices=["AAPL", "TSLA", "GOOGL"])
-                buy_quantity = gr.Number(label="Quantity", precision=0)
-                buy_btn = gr.Button("Buy Shares")
+                buy_symbol = gr.Dropdown(label="Símbolo", choices=["AAPL", "TSLA", "GOOGL"])
+                buy_quantity = gr.Number(label="Quantidade", precision=0)
+                buy_btn = gr.Button("Comprar Ações")
             with gr.Column():
-                sell_symbol = gr.Dropdown(label="Symbol", choices=["AAPL", "TSLA", "GOOGL"])
-                sell_quantity = gr.Number(label="Quantity", precision=0)
-                sell_btn = gr.Button("Sell Shares")
-        trade_output = gr.Textbox(label="Result")
+                sell_symbol = gr.Dropdown(label="Símbolo", choices=["AAPL", "TSLA", "GOOGL"])
+                sell_quantity = gr.Number(label="Quantidade", precision=0)
+                sell_btn = gr.Button("Vender Ações")
+        trade_output = gr.Textbox(label="Resultado")
         buy_btn.click(buy_stock, inputs=[buy_symbol, buy_quantity], outputs=[trade_output])
         sell_btn.click(sell_stock, inputs=[sell_symbol, sell_quantity], outputs=[trade_output])
     
-    with gr.Tab("Check Stock Price"):
+    with gr.Tab("Consultar Preço"):
         with gr.Row():
-            price_symbol = gr.Dropdown(label="Symbol", choices=["AAPL", "TSLA", "GOOGL"])
-            price_btn = gr.Button("Check Price")
-        price_output = gr.Textbox(label="Result")
+            price_symbol = gr.Dropdown(label="Símbolo", choices=["AAPL", "TSLA", "GOOGL"])
+            price_btn = gr.Button("Verificar Preço")
+        price_output = gr.Textbox(label="Resultado")
         price_btn.click(check_price, inputs=[price_symbol], outputs=[price_output])
     
-    with gr.Tab("Portfolio"):
-        portfolio_btn = gr.Button("View Portfolio")
-        portfolio_output = gr.Textbox(label="Portfolio Details")
+    with gr.Tab("Portfólio"):
+        portfolio_btn = gr.Button("Ver Portfólio")
+        portfolio_output = gr.Textbox(label="Detalhes do Portfólio")
         portfolio_btn.click(get_portfolio, inputs=[], outputs=[portfolio_output])
     
-    with gr.Tab("Transaction History"):
-        transaction_btn = gr.Button("View Transactions")
-        transaction_output = gr.Textbox(label="Transaction History")
+    with gr.Tab("Histórico de Transações"):
+        transaction_btn = gr.Button("Ver Transações")
+        transaction_output = gr.Textbox(label="Histórico de Transações")
         transaction_btn.click(list_transactions, inputs=[], outputs=[transaction_output])
 
 if __name__ == "__main__":

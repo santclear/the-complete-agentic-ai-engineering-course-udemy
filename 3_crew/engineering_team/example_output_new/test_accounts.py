@@ -1,4 +1,4 @@
-import unittest
+﻿import unittest
 from accounts import get_share_price, Account
 
 class TestGetSharePrice(unittest.TestCase):
@@ -87,7 +87,7 @@ class TestAccount(unittest.TestCase):
         self.account.buy_shares('AAPL', 10)
         holdings = self.account.get_holdings()
         self.assertEqual(holdings, {'AAPL': 10})
-        # Test that it's a copy
+        # Verifica que é uma cópia
         holdings['AAPL'] = 5
         self.assertEqual(self.account.holdings, {'AAPL': 10})
     
@@ -95,7 +95,7 @@ class TestAccount(unittest.TestCase):
         self.account.deposit_funds(500.0)
         transactions = self.account.get_transactions()
         self.assertEqual(len(transactions), 2)
-        # Test that it's a copy
+        # Verifica que é uma cópia
         transactions.append({'test': 'data'})
         self.assertEqual(len(self.account.transactions), 2)
     
