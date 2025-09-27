@@ -1,67 +1,66 @@
-# Extra setup details for NodeJS and Playwright
+# Detalhes extras de configuração para NodeJS e Playwright
 
-_In Cursor, right click on this file in the Explorer and select "Open Preview" to see it with formatting, or look at the version online in Github._
+_No Cursor, clique com o botão direito neste arquivo no Explorer e selecione "Open Preview" para vê-lo com formatação, ou veja a versão online no Github._
 
-In weeks 4 and 6, we will make use of NodeJS on your computer.
+Nas semanas 4 e 6, usaremos o NodeJS em seu computador.  
 
-PC users take note: if you are using WSL (which you will need to in Week 6), then at that point you will need to install node again on your Ubuntu side.
+Usuários de PC, atenção: se estiver usando WSL (o que será necessário na Semana 6), nesse momento você precisará instalar o Node novamente no lado do Ubuntu.
 
-## Instructions for installing Node
+## Instruções para instalar o Node
 
-Check if you have node installed - should be v22 or later:  
-`!node --version` 
+Verifique se você tem o Node instalado – deve ser a versão v22 ou posterior:  
+`!node --version`
 
-Here are super clear installation instructions, courtesy of our AI friend:
+Aqui estão instruções super claras de instalação, cortesia do nosso amigo IA:
 
 https://chatgpt.com/share/68103af2-e2dc-8012-b259-bc135a23273b
 
-In most cases, this involves simply visiting https://nodejs.org and follow the instructions. PC users on WSL, remember to follow the Linux instructions.
+Na maioria dos casos, isso envolve simplesmente visitar https://nodejs.org e seguir as instruções. Usuários de PC no WSL, lembrem-se de seguir as instruções para Linux.
 
-When complete, check that this works in the notebook. You may need to quit and relaunch Cursor (also close any open terminals in Cursor).
+Quando terminar, verifique se funciona no notebook. Pode ser necessário sair e reiniciar o Cursor (também feche quaisquer terminais abertos no Cursor).  
 
 `!node --version`  
 `!npx --version`
 
-## Installing Playwright
+## Instalando o Playwright
 
-Playwright is the browser automation software from Microsoft that we use in weeks 4 and 6.
+Playwright é o software de automação de navegador da Microsoft que usamos nas semanas 4 e 6.
 
-On Mac / PC:  
+No Mac / PC:  
 `uv run playwright install`
 
-On Linux / WSL:  
+No Linux / WSL:  
 `uv run playwright install --with-deps chromium`
 
-## Troubleshooting - if node-based MCP servers hang on Windows / WSL
+## Solução de problemas – se servidores MCP baseados em Node travarem no Windows / WSL
 
-For some WSL users, running npx based MCP servers seems to hang. Here is the fix!
+Para alguns usuários de WSL, rodar servidores MCP baseados em npx parece travar. Aqui está a correção!
 
-First, quit and relaunch Cursor, to pick up any changes since you installed node. Also, exit any open Terminals in Cursor and open a new terminal.
+Primeiro, saia e reinicie o Cursor para aplicar quaisquer mudanças desde que instalou o Node. Também feche todos os Terminais abertos no Cursor e abra um novo terminal.
 
-In the terminal, run:  
+No terminal, execute:  
 `which node`
 
-This should give you a path to node running on your WSL subsystem. Suppose it's something like:  
+Isso deve fornecer o caminho do Node rodando no seu subsistema WSL. Suponha que seja algo como:  
 `/home/user/.nvm/versions/node/v22.18.0/bin`
 
-Then run this command, carefully replacing the path here with your one:   
-`!export PATH="/home/user/.nvm/versions/node/v22.18.0/bin:$PATH"`  
+Então, execute este comando, substituindo cuidadosamente o caminho pelo seu:  
+`!export PATH="/home/user/.nvm/versions/node/v22.18.0/bin:$PATH"`
 
-Also this, again carefully replacing the path with your one:  
+E também este, novamente substituindo o caminho pelo seu:  
 `os.environ["PATH"] = "/home/user/.nvm/versions/node/v22.18.0/bin:" + os.environ["PATH"]`
 
-And then try the prior cell again.  
-And if even that doesn't work, try changing the MCP params with the full path of npx:
-
+Depois, tente rodar novamente a célula anterior.  
+E se ainda não funcionar, tente mudar os parâmetros do MCP para o caminho completo do npx:
 ```python
 playwright_params = {"command": "/home/user/.nvm/versions/node/v22.18.0/bin/npx","args": [ "@playwright/mcp@latest"]}
 ```
 
-And / or this approach:
+E / ou esta abordagem:
 
 ```python
 env = {"PATH": "/home/user/.nvm/versions/node/v22.18.0/bin:" + os.environ["PATH"]}
 playwright_params = {"command": "npx","args": [ "@playwright/mcp@latest"], "env": env}
 ```
 
-If that doesn't work, let me know! A heartfelt thank you to Radoslav R. and André R. for battling with this, finding the fixes and sharing them!
+Se isso não funcionar, me avise! Um sincero agradecimento a Radoslav R. e André R. por batalharem com isso, encontrarem as soluções e compartilharem!

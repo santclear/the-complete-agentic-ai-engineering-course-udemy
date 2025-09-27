@@ -1,4 +1,4 @@
-from playwright.async_api import async_playwright
+﻿from playwright.async_api import async_playwright
 from langchain_community.agent_toolkits import PlayWrightBrowserToolkit
 from dotenv import load_dotenv
 import os
@@ -26,9 +26,9 @@ async def playwright_tools():
 
 
 def push(text: str):
-    """Send a push notification to the user"""
+    """Envia uma notificação push para o usuário"""
     requests.post(pushover_url, data = {"token": pushover_token, "user": pushover_user, "message": text})
-    return "success"
+    return "sucesso"
 
 
 def get_file_tools():
@@ -37,13 +37,13 @@ def get_file_tools():
 
 
 async def other_tools():
-    push_tool = Tool(name="send_push_notification", func=push, description="Use this tool when you want to send a push notification")
+    push_tool = Tool(name="send_push_notification", func=push, description="Use esta ferramenta quando quiser enviar uma notificação push")
     file_tools = get_file_tools()
 
     tool_search =Tool(
         name="search",
         func=serper.run,
-        description="Use this tool when you want to get the results of an online web search"
+        description="Use esta ferramenta quando quiser obter os resultados de uma pesquisa na web"
     )
 
     wikipedia = WikipediaAPIWrapper()

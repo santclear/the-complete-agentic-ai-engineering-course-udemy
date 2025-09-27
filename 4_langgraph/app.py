@@ -1,4 +1,4 @@
-import gradio as gr
+﻿import gradio as gr
 from sidekick import Sidekick
 
 
@@ -20,30 +20,30 @@ async def reset():
 
 
 def free_resources(sidekick):
-    print("Cleaning up")
+    print("Limpando")
     try:
         if sidekick:
             sidekick.cleanup()
     except Exception as e:
-        print(f"Exception during cleanup: {e}")
+        print(f"Exceção durante a limpeza: {e}")
 
 
 with gr.Blocks(title="Sidekick", theme=gr.themes.Default(primary_hue="emerald")) as ui:
-    gr.Markdown("## Sidekick Personal Co-Worker")
+    gr.Markdown("## Sidekick colega pessoal")
     sidekick = gr.State(delete_callback=free_resources)
 
     with gr.Row():
         chatbot = gr.Chatbot(label="Sidekick", height=300, type="messages")
     with gr.Group():
         with gr.Row():
-            message = gr.Textbox(show_label=False, placeholder="Your request to the Sidekick")
+            message = gr.Textbox(show_label=False, placeholder="Sua solicitação para o Sidekick")
         with gr.Row():
             success_criteria = gr.Textbox(
-                show_label=False, placeholder="What are your success critiera?"
+                show_label=False, placeholder="Quais são os seus critérios de sucesso?"
             )
     with gr.Row():
-        reset_button = gr.Button("Reset", variant="stop")
-        go_button = gr.Button("Go!", variant="primary")
+        reset_button = gr.Button("Redefinir", variant="stop")
+        go_button = gr.Button("Executar!", variant="primary")
 
     ui.load(setup, [], [sidekick])
     message.submit(
