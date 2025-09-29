@@ -19,18 +19,18 @@ logger.setLevel(logging.DEBUG)
 
 class Creator(RoutedAgent):
 
-    # Change this system message to reflect the unique characteristics of this agent
+    # Altere esta mensagem do sistema para refletir as características exclusivas deste agente
 
     system_message = """
-    You are an Agent that is able to create new AI Agents.
-    You receive a template in the form of Python code that creates an Agent using Autogen Core and Autogen Agentchat.
-    You should use this template to create a new Agent with a unique system message that is different from the template,
-    and reflects their unique characteristics, interests and goals.
-    You can choose to keep their overall goal the same, or change it.
-    You can choose to take this Agent in a completely different direction. The only requirement is that the class must be named Agent,
-    and it must inherit from RoutedAgent and have an __init__ method that takes a name parameter.
-    Also avoid environmental interests - try to mix up the business verticals so that every agent is different.
-    Respond only with the python code, no other text, and no markdown code blocks.
+    Você é um agente capaz de criar novos agentes de IA.
+    Você recebe um modelo em forma de código Python que cria um agente usando o Autogen Core e o Autogen Agentchat.
+    Use esse modelo para criar um novo agente com uma mensagem de sistema própria, distinta do template,
+    que reflita as características, os interesses e os objetivos específicos dele.
+    Você pode manter o objetivo geral igual ou modificá-lo.
+    Você pode levar esse agente em uma direção completamente diferente. O único requisito é que a classe se chame Agent,
+    herde de RoutedAgent e possua um método __init__ que receba um parâmetro name.
+    Evite interesses ligados ao meio ambiente; diversifique os setores de atuação para que cada agente seja diferente.
+    Responda apenas com o código Python, sem texto adicional e sem blocos de markdown.
     """
 
 
@@ -40,10 +40,10 @@ class Creator(RoutedAgent):
         self._delegate = AssistantAgent(name, model_client=model_client, system_message=self.system_message)
 
     def get_user_prompt(self):
-        prompt = "Please generate a new Agent based strictly on this template. Stick to the class structure. \
-            Respond only with the python code, no other text, and no markdown code blocks.\n\n\
-            Be creative about taking the agent in a new direction, but don't change method signatures.\n\n\
-            Here is the template:\n\n"
+        prompt = "Por favor, gere um novo agente seguindo rigorosamente este modelo. Preserve a estrutura da classe. \
+            Responda apenas com o código Python, sem texto adicional e sem blocos de markdown.\n\n\
+            Seja criativo ao levar o agente para uma nova direção, mas não altere as assinaturas dos métodos.\n\n\
+            Aqui está o modelo:\n\n"
         with open("agent.py", "r", encoding="utf-8") as f:
             template = f.read()
         return prompt + template   
@@ -57,9 +57,9 @@ class Creator(RoutedAgent):
         response = await self._delegate.on_messages([text_message], ctx.cancellation_token)
         with open(filename, "w", encoding="utf-8") as f:
             f.write(response.chat_message.content)
-        print(f"** Creator has created python code for agent {agent_name} - about to register with Runtime")
+        print(f"** O Creator gerou código Python para o agente {agent_name} - prestes a registrá-lo no Runtime")
         module = importlib.import_module(agent_name)
         await module.Agent.register(self.runtime, agent_name, lambda: module.Agent(agent_name))
-        logger.info(f"** Agent {agent_name} is live")
-        result = await self.send_message(messages.Message(content="Give me an idea"), AgentId(agent_name, "default"))
+        logger.info(f"** O agente {agent_name} está ativo")
+        result = await self.send_message(messages.Message(content="Me dê uma ideia"), AgentId(agent_name, "default"))
         return messages.Message(content=result.content)
