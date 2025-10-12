@@ -1,55 +1,55 @@
-## Master AI Agentic Engineering -  build autonomous AI Agents
+﻿## Master AI Agentic Engineering - construir agentes autônomos de IA
 
-# Setting up WSL - Windows Subsytem for Linux
+# Configurando o WSL - Subsistema do Windows para Linux
 
-_NOTE 1: These instructions assume that you've already carried out the PC Setup instructions_
+_NOTA 1: Estas instruções presumem que você já executou as instruções de Preparação do PC_
 
-_NOTE 2: In Cursor, remember to Right Click on this file in the Explorer and choose "Open Preview" to see the formatting._
+_NOTA 2: No Cursor, lembre-se de clicar com o botão direito neste arquivo no Explorer e escolher "Open Preview" para visualizar a formatação._
 
-Welcome back to Setup-land, PC people!
+Bem-vindo de volta à terra das configurações, pessoal do PC!
 
-I expect you're here because you've reached Week 6, and discovered the unpleasant news that MCP Servers are only working on Windows under WSL.
+Imagino que você esteja aqui porque chegou à Semana 6 e descobriu a notícia desagradável de que os servidores MCP funcionam no Windows apenas sob o WSL.
 
-I'm so sorry to put you through this! The good news is, several students have confirmed that MCP Servers are working under WSL. Also, WSL is generally considered a great way to build on Windows. And the other good news is that you've already done the setup once, so surely this will be relatively painless? Fingers crossed.
+Sinto muito por fazê-lo passar por isso! A boa notícia é que vários alunos confirmaram que os servidores MCP funcionam no WSL. Além disso, o WSL é amplamente considerado uma excelente maneira de desenvolver no Windows. E outra boa notícia é que você já realizou a configuração uma vez, portanto, é de se esperar que desta vez tudo seja relativamente indolor. Vamos torcer.
 
-### Part 1: Install WSL if you haven't before
+### Parte 1: Instale o WSL, caso ainda não o tenha feito
 
-WSL is the Microsoft recommended way to run Linux on your Windows PC, as described here:  
+O WSL é a forma recomendada pela Microsoft para executar Linux no seu PC com Windows, conforme descrito aqui:  
 https://learn.microsoft.com/en-us/windows/wsl/install
 
-We will be using the default Ubuntu distribution of Linux, which seems to work fine. Let's do this!
+Usaremos a distribuição padrão do Ubuntu, que parece funcionar muito bem. Vamos lá!
 
-1. Open a powershell
-2. Run: `wsl --install`
-3. Select to allow elevated permissions when it asks; then wait for Ubuntu to install
-4. Then run `wsl` to start it and set your Linux username and password
-5. Type `pwd` and `ls` to see what directory you're in, and list the contents. Then type `cd` to change to your home directory, and repeat.
+1. Abra um PowerShell.
+2. Execute: `wsl --install`
+3. Autorize permissões elevadas quando solicitado e aguarde a instalação do Ubuntu.
+4. Em seguida, execute `wsl` para iniciá-lo e definir seu nome de usuário e senha do Linux.
+5. Digite `pwd` e `ls` para ver em qual diretório você está e listar o conteúdo. Depois, digite `cd` para ir ao seu diretório pessoal e repita os comandos.
 
-It's important to appreciate the difference between your Windows home directory, and this new home directory in your Linux WSL world..
+É importante compreender a diferença entre o seu diretório pessoal do Windows e este novo diretório pessoal no ambiente Linux do WSL.
 
-### Part 2: Install uv and repo
+### Parte 2: Instale o uv e o repositório
 
-1. From a powershell, run `ubuntu` - note that it's important to do `ubuntu` rather than `wsl` because it starts you in your Linux home directory  
-2. Then follow the linux instructions here: https://docs.astral.sh/uv/getting-started/installation/ and run `curl -LsSf https://astral.sh/uv/install.sh | sh`
-3. After that completes, you need to type `exit` to leave WSL and return to the Powershell and then type `ubuntu` to return to Linux, in order that changes to PATH are picked up
-4. Now type `pwd` to check you're in your Linux home directory. If in doubt, `cd ~` and `ls` to check.
-5. Now create a projects directory with `mkdir projects` then `cd projects` to go into it
-6. And, from within your new projects directory, clone the repo with `git clone https://github.com/ed-donner/agents.git`
-7. Now go into your new agents directory, your Project Root Directory, with `cd agents`
-8. And now run the all-powerful `uv sync`
+1. A partir do PowerShell, execute `ubuntu`. É importante usar `ubuntu`, e não `wsl`, porque isso o coloca diretamente no seu diretório pessoal do Linux.  
+2. Siga as instruções para Linux em: https://docs.astral.sh/uv/getting-started/installation/ e execute `curl -LsSf https://astral.sh/uv/install.sh | sh`
+3. Quando a instalação terminar, digite `exit` para sair do WSL e retornar ao PowerShell, depois digite `ubuntu` para voltar ao Linux, a fim de que as alterações na variável PATH sejam reconhecidas.
+4. Agora digite `pwd` para verificar se você está em seu diretório pessoal do Linux. Em caso de dúvida, use `cd ~` e `ls` para conferir.
+5. Crie um diretório de projetos com `mkdir projects` e, em seguida, `cd projects` para acessá-lo.
+6. Dentro do novo diretório de projetos, clone o repositório com `git clone https://github.com/ed-donner/agents.git`
+7. Entre no novo diretório `agents`, o seu diretório raiz do projeto, com `cd agents`
+8. Execute o poderoso `uv sync`
 
-At this point, I experienced an unpleasant memory error. I believe it's related to my setup, and you shouldn't hit it. But if you do, please let me know - I have a fix!
+Neste ponto, encontrei um erro desagradável de memória. Acredito que esteja relacionado à minha configuração, e você provavelmente não o enfrentará. Caso aconteça, avise-me - tenho uma correção!
 
-### Part 3: Configure Cursor running in your PC environment
+### Parte 3: Configure o Cursor executando no seu ambiente de PC
 
-1. Open Cursor, the usual way, on your PC
-2. Bring up the Extensions panel (View menu >> Extensions or Ctrl+Shift+X), search for WSL, see WSL by Anysphere (the makers of Cursor) and Install it
-3. Now press Ctrl+Shift+P and search for Remote-WSL: New Window and select it to Open a new window configured for WSL
-4. Select Open Project (then get a coffee), and navigate to your new "agents" project root directory in Linux, and then Open or Select Folder
-5. Bring up the Extensions panel again (Ctrl+Shift+X) and install these Extensions in your WSL if not already installed: Python (ms-python), and Jupyter (microsoft), clicking the "Install in WSL-Ubuntu" button
+1. Abra o Cursor, como de costume, no seu PC.
+2. Abra o painel de Extensões (menu View >> Extensions ou Ctrl+Shift+X), pesquise por WSL, localize o WSL da Anysphere (os criadores do Cursor) e instale-o.
+3. Pressione Ctrl+Shift+P, procure por Remote-WSL: New Window e selecione essa opção para abrir uma nova janela configurada para o WSL.
+4. Escolha Open Project (então, aproveite para pegar um café), navegue até o novo diretório raiz do projeto "agents" no Linux e clique em Open ou Select Folder.
+5. Abra novamente o painel de Extensões (Ctrl+Shift+X) e instale essas extensões no WSL, caso ainda não estejam instaladas: Python (ms-python) e Jupyter (microsoft), clicando no botão "Install in WSL-Ubuntu".
 
-### And you should be ready to roll!
+### E pronto para começar!
 
-You'll need to create a new ".env" file in the agents folder, and copy across your .env from your other project. And you'll need to click "Select Kernel" and "Choose python environment..".
+Você precisará criar um novo arquivo `.env` na pasta `agents` e copiar o seu `.env` do outro projeto. Além disso, será necessário clicar em "Select Kernel" e "Choose python environment...".
 
-Enjoy MCP!
+Aproveite o MCP!
